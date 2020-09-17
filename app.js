@@ -8,7 +8,6 @@ function Welcome(props) {
 }
 
 // Clock Component
-
 class Clock extends React.Component {
     constructor(props) {
         super(props);
@@ -47,7 +46,6 @@ class Clock extends React.Component {
 }
 
 // Incrementor Component
-
 class Incrementor extends React.Component {
     constructor(props) {
         super(props);
@@ -95,7 +93,6 @@ Incrementor.defaultProps = {
 };
 
 // IncrementBtn component
-
 class IncrementBtn extends React.Component {
     constructor(props) {
         super(props);
@@ -122,12 +119,11 @@ class IncrementBtn extends React.Component {
 }
 
 // ToggleBtn component
-
 class ToggleBtn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {isToggled: true};
-        this.className = {className: props.className}
+        this.className = {color: props.className}
         // this.toggle = this.toggle.bind(this); // initié lors de l'appel de l'event ici
     }
 
@@ -141,13 +137,54 @@ class ToggleBtn extends React.Component {
     render () {
         return (
             <div>
-                <button type="button" onClick={this.toggle.bind(this)} className={this.className.className}>
+                <button type="button" onClick={this.toggle.bind(this)} className={this.className.color}>
                     {this.state.isToggled ? "On": "Off"}
                 </button>
             </div>
         )
     }   
 }
+// stopwatchBtn component
+class StopwatchBtn extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            secNum: 0,
+            isToggled: false
+        };
+        this.className = {color: props.className};
+        this.start = this.start.bind(this);
+    }
+
+    // componentDidMount() {
+    //     let timerID = setInterval( ()=> {
+    //         this.start(),
+    //         1000
+    //     });
+    // }
+
+    // componentWillUnmount() {
+    //     window.clearInterval(timerID);
+    // }
+
+    start() {
+        this.setState( () => (
+            {isToggled: !this.state.isToggled}
+        ));
+    }
+
+    render() {
+        return (
+            <div>
+                <button type="button" onClick={this.start} className={this.className.color}>
+                    {this.state.isToggled ? "On": "Off" }
+                </button>
+                Time elapsed : {this.state.secNum}
+            </div>
+        )
+    }
+}
+
 
 class App extends React.Component {
     render () {
@@ -160,6 +197,7 @@ class App extends React.Component {
                 <IncrementBtn className="btn btn-primary"/>
                 <IncrementBtn className="btn btn-light"/>
                 <ToggleBtn className="btn btn-danger"/>
+                <StopwatchBtn className="btn btn-dark"/>
             </React.Fragment>
         );
     }
