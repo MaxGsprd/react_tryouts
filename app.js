@@ -94,6 +94,60 @@ Incrementor.defaultProps = {
     step: 1
 };
 
+// IncrementBtn component
+
+class IncrementBtn extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {n: 0};
+        this.className = {BtnColor: props.className}
+        this.incrementN = this.incrementN.bind(this);
+    }
+
+    incrementN() {
+        this.setState( () => (
+            {n: this.state.n + 1}
+        ));
+    }
+
+    render () {
+        return (
+            <div>
+                <button type="button" onClick={this.incrementN} className={this.className.BtnColor}>
+                    Click : {this.state.n}
+                </button>
+            </div>
+        )
+    }   
+}
+
+// ToggleBtn component
+
+class ToggleBtn extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {isToggled: true};
+        this.className = {className: props.className}
+        // this.toggle = this.toggle.bind(this); // initié lors de l'appel de l'event ici
+    }
+
+    toggle(e) {
+        e.preventDefault();
+        this.setState((state) => (
+           {isToggled: !state.isToggled}
+        ));
+    }
+
+    render () {
+        return (
+            <div>
+                <button type="button" onClick={this.toggle.bind(this)} className={this.className.className}>
+                    {this.state.isToggled ? "On": "Off"}
+                </button>
+            </div>
+        )
+    }   
+}
 
 class App extends React.Component {
     render () {
@@ -103,6 +157,9 @@ class App extends React.Component {
                 <Clock />
                 <Incrementor />
                 <Incrementor start={2} step={2}/>
+                <IncrementBtn className="btn btn-primary"/>
+                <IncrementBtn className="btn btn-light"/>
+                <ToggleBtn className="btn btn-danger"/>
             </React.Fragment>
         );
     }
