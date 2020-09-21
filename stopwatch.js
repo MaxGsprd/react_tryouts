@@ -2,18 +2,18 @@
 class StopwatchBTn extends React.Component {
     constructor(props) {
         super(props),
-        this.state = {n: 0, isTimerOn: null};
+        this.state = {n: 0, timer: null};
         this.increment = this.increment.bind(this);
         this.pause = this.pause.bind(this);
         this.play = this.play.bind(this);
     }
 
     componentDidMount() {
-      this.play(); 
+      this.pause(); 
     }
 
     componentWillUnmount() {
-        this.pause();
+        window.clearInterval(this.state.timer);
     }
 
     increment() {
@@ -22,27 +22,30 @@ class StopwatchBTn extends React.Component {
     }
 
     pause() {
-        window.clearInterval(this.state.isTimerOn);
+        window.clearInterval(this.state.timer);
         this.setState({
-            isTimerOn: null
+            timer: null
         });
     }
 
     play() {
+        window.clearInterval(this.timer);
         this.setState({
-            isTimerOn: window.setInterval(this.increment, 1000)
+            timer: window.setInterval(this.increment, 1000)
         });
     }
 
     render() {
         return (
             <div>
+                {this.state.timer ?
                 <button className="btn btn-danger" onClick={this.pause}>
                     Pause
-                </button>
+                </button>:
                 <button className="btn btn-primary" onClick={this.play}>
                     Play
                 </button>
+            }
                 <p>Time elapsed: {this.state.n} seconds</p>
             </div>
         )
