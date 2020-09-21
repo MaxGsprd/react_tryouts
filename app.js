@@ -71,7 +71,7 @@ class Incrementor extends React.Component {
         // });
 
         /**
-         * In React parenthesis are used in arrow func. to return obj.!!
+         * In React, parenthesis are used in arrow func. to return obj.!!
          */
         this.setState((state, props) => ({
             start: state.start + props.step
@@ -122,7 +122,7 @@ class IncrementBtn extends React.Component {
 class ToggleBtn extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {isToggled: true};
+        this.state = {isToggled: false};
         this.className = {color: props.className}
         // this.toggle = this.toggle.bind(this); // initié lors de l'appel de l'event ici
     }
@@ -144,48 +144,8 @@ class ToggleBtn extends React.Component {
         )
     }   
 }
-// stopwatchBtn component
-class StopwatchBtn extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            secNum: 0,
-            isToggled: false
-        };
-        this.className = {color: props.className};
-        this.start = this.start.bind(this);
-    }
 
-    // componentDidMount() {
-    //     let timerID = setInterval( ()=> {
-    //         this.start(),
-    //         1000
-    //     });
-    // }
-
-    // componentWillUnmount() {
-    //     window.clearInterval(timerID);
-    // }
-
-    start() {
-        this.setState( () => (
-            {isToggled: !this.state.isToggled}
-        ));
-    }
-
-    render() {
-        return (
-            <div>
-                <button type="button" onClick={this.start} className={this.className.color}>
-                    {this.state.isToggled ? "On": "Off" }
-                </button>
-                Time elapsed : {this.state.secNum}
-            </div>
-        )
-    }
-}
-
-
+// App Component
 class App extends React.Component {
     render () {
         return (
@@ -195,14 +155,12 @@ class App extends React.Component {
                 <Incrementor />
                 <Incrementor start={2} step={2}/>
                 <IncrementBtn className="btn btn-primary"/>
-                <IncrementBtn className="btn btn-light"/>
                 <ToggleBtn className="btn btn-danger"/>
-                <StopwatchBtn className="btn btn-dark"/>
             </React.Fragment>
         );
     }
 }
-
+// ReactDOM render
 ReactDOM.render(
   <App/>,
   document.getElementById('root')
